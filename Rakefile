@@ -1,36 +1,37 @@
 require 'rubygems'
+require 'bundler'
+begin 
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
 require 'rake'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "safeattributes"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "cbj@gnu.org"
-    gem.homepage = "http://github.com/bjones/safeattributes"
-    gem.authors = ["C. Brian Jones"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  gem.name = "safe_attributes"
+  gem.homepage = "http://github.com/bjones/safe_attributes"
+  gem.license = "MIT"
+  gem.summary = %Q{Add support reserved word column names with ActiveRecord}
+  gem.description = %Q{If your schema has columns named type, or class, or any other name that conflicts with a method of ActiveRecord or one of its superclasses, you will need this gem to use Rails 3 with that database.}
+  gem.email = "cbj@gnu.org"
+  gem.authors = ["Brian Jones"]
+  gem.add_development_dependency "rspec", ">= 2.0.0"
+  gem.add_development_dependency "sqlite3-ruby"
+  gem.add_dependency "activerecord", ">= 3.0.0"
+end
+Jeweler::RubygemsDotOrgTasks.new
+
+require 'rspec/core'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec) do |spec|
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
-end
-
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
+RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.rcov = true
 end
-
-task :spec => :check_dependencies
 
 task :default => :spec
 
@@ -39,7 +40,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "safeattributes #{version}"
+  rdoc.title = "SafeAttributes #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

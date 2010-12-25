@@ -1,6 +1,52 @@
-= safeattributes
+= SafeAttributes
 
-Description goes here.
+By default Rails creates attribute accessors for all database table columns
+in each model.  Columns with specific names cause errors because they result
+in Rails redefining a key method within either Ruby or Rails in an 
+incompatible way.  A classic example for me has been tables with a column 
+named 'class', though there are many other possible examples.
+
+Using this gem enhances activerecord to change the default behavior for
+the creation of attribute accessors.  Methods in ActiveRecord::Base and
+its superclasses, except for 'id', are combined into a list.  This list
+is checked before the creation of two types of attribute accessors: 
+attribute() and attribute=().  
+
+You can add to this list by calling bad_attribute_names with a list of
+method names you do not want generated.  Rails generates additional methods
+that this module does not prevent the creation of: 
+
+* attribute_before_type_cast
+* attribute_changed?
+* attribute_was
+* attribute_will_change!
+* attribute?
+
+These largely should not run afoul of Ruby or ActiveRecord in most cases.
+
+To access an attribute in ActiveRecord without its normal getter or setter
+you can use a couple of different approaches.
+
+* model_instance[:attribute]  # works as both getter and setter like a hash
+* model_instance.read_attribute('attribute')
+* model_instance.write_attribute('attribute', value)
+
+== Using
+
+=== Rails
+SafeAttributes is included into ActiveRecord::Base automatically.  While
+nothing else should be necessary, you can still add to the list of bad
+attributes if you find it necessary.
+
+class MyModel < ActiveRecord::Base
+  bad_attribute_names :my_attr
+end
+
+=== Outside of Rails
+require 'safe_attributes'
+class MyModel < ActiveRecord::Base
+  include SafeAttributes
+end
 
 == Note on Patches/Pull Requests
  
