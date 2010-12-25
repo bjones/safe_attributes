@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/safe_attributes.rb",
+    "lib/safe_attributes/railtie.rb",
+    "safe_attributes.gemspec",
     "spec/safe_attributes/safe_attributes_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -32,7 +34,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Add support reserved word column names with ActiveRecord}
+  s.summary = %q{Add support for reserved word column names with ActiveRecord}
   s.test_files = [
     "spec/safe_attributes/safe_attributes_spec.rb",
     "spec/spec_helper.rb"
