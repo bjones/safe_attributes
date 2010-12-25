@@ -9,18 +9,18 @@ rescue Bundler::BundlerError => e
 end
 require 'rake'
 
+version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   gem.name = "safe_attributes"
+  gem.version = version
   gem.homepage = "http://github.com/bjones/safe_attributes"
   gem.license = "MIT"
   gem.summary = %Q{Add support for reserved word column names with ActiveRecord}
   gem.description = %Q{If your schema has columns named type, or class, or any other name that conflicts with a method of ActiveRecord or one of its superclasses, you will need this gem to use Rails 3 with that database.}
   gem.email = "cbj@gnu.org"
   gem.authors = ["Brian Jones"]
-  gem.add_development_dependency "rspec", ">= 2.0.0"
-  gem.add_development_dependency "sqlite3-ruby"
-  gem.add_dependency "activerecord", ">= 3.0.0"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
@@ -37,8 +37,6 @@ task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "SafeAttributes #{version}"
   rdoc.rdoc_files.include('README*')

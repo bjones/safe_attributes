@@ -31,6 +31,20 @@ you can use a couple of different approaches.
 * model_instance.read_attribute('attribute')
 * model_instance.write_attribute('attribute', value)
 
+== Installing
+
+  gem install safe_attributes --force
+
+The --force flag is here because I believe rubygems to have some sort of
+dependency tracking issue.  Without it, it wants to install the newest
+activemodel (3.0.3 at this time) and arel.  These are not necessary 
+for the gem and this should not be happening.  As long as you have 
+activerecord 3.0.0 or better it should work.  Here's the error message
+in case you see it.
+
+  ERROR:  Error installing safe_attributes:
+    activemodel requires activesupport (= 3.0.3, runtime)
+
 == Using
 
 === Rails
