@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Jones"]
   s.date = %q{2010-12-25}
-  s.description = %q{If your schema has columns named type, or class, or any other name that conflicts with a method of ActiveRecord or one of its superclasses, you will need this gem to use Rails 3 with that database.}
+  s.description = %q{If your schema has columns named class, or any other name that conflicts with a method of ActiveRecord or one of its superclasses, you will need this gem to use Rails 3 with that database.}
   s.email = %q{cbj@gnu.org}
   s.extra_rdoc_files = [
     "LICENSE",
