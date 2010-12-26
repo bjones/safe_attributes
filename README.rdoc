@@ -1,14 +1,15 @@
 = SafeAttributes
 
-By default Rails creates attribute accessors for all database table columns
-in each model.  Columns with specific names cause errors because they result
-in Rails redefining a key method within either Ruby or Rails in an 
-incompatible way.  A classic example for me has been tables with a column 
-named 'class', though there are many other possible examples.
+By default Rails/ActiveRecord 3 creates attribute accessors for all 
+database table columns in each model.  Columns with specific names 
+cause errors because they result in ActiveRecord redefining a key 
+method within either Ruby or ActiveRecord in an incompatible way.  A 
+classic example for me has been tables with a column 
+named 'class', though there are other possible examples.
 
-Using this gem enhances activerecord to change the default behavior for
-the creation of attribute accessors.  Methods in ActiveRecord::Base and
-its superclasses, except for 'id', are combined into a list.  This list
+Using this gem enhances ActiveRecord to change the default behavior for
+the creation of attribute accessors.  Instance methods in 
+ActiveRecord::Base, except for 'id', are combined into a list.  This list
 is checked before the creation of two types of attribute accessors: 
 attribute() and attribute=().  
 
@@ -33,17 +34,19 @@ you can use a couple of different approaches.
 
 == Installing
 
-  gem install safe_attributes --force
+  gem install safe_attributes
 
-The --force flag is here because I believe rubygems to have some sort of
-dependency tracking issue.  Without it, it wants to install the newest
-activemodel (3.0.3 at this time) and arel.  These are not necessary 
-for the gem and this should not be happening.  As long as you have 
-activerecord 3.0.0 or better it should work.  Here's the error message
-in case you see it.
+If you do not have the newest version of ActiveRecord, rubygems will 
+attempt to install it for you.  This can result in an error like below.
 
   ERROR:  Error installing safe_attributes:
     activemodel requires activesupport (= 3.0.3, runtime)
+
+You can use this gem with activerecord and activesupport >= 3.0 and < 3.1.  
+If you already have an appropriate version of activerecord and 
+activesupport installed then use --ignore-dependencies to avoid this
+error.  If you have the latest version already then the gem should install
+without issue using the recommended approach above.
 
 == Using
 
