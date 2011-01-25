@@ -4,8 +4,9 @@ By default Rails/ActiveRecord 3 creates attribute accessors for all
 database table columns in each model.  Columns with specific names 
 cause errors because they result in ActiveRecord redefining a key 
 method within either Ruby or ActiveRecord in an incompatible way.  A 
-classic example for me has been tables with a column 
-named 'class', though there are other possible examples.
+classic example is any table with a column named 'class', though there 
+are other possible examples.  Put simply, this gem makes it easier
+to support a legacy database schema with ActiveRecord.
 
 Using this gem enhances ActiveRecord to change the default behavior for
 the creation of attribute accessors.  Instance methods in 

@@ -2,11 +2,11 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'rubygems'
-gem 'activerecord', '>= 3.0.0'
-require 'active_record'
-gem 'activesupport', '>= 3.0.0'
-require 'active_support'
+require 'bundler'
+Bundler.setup(:default, :development)
 
+require 'active_record'
+require 'active_support'
 require 'safe_attributes'
 require 'rspec'
 require 'rspec/autorun'

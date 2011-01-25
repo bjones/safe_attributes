@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{safe_attributes}
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Jones"]
-  s.date = %q{2010-12-25}
-  s.description = %q{If your schema has columns named class, or any other name that conflicts with a method of ActiveRecord or one of its superclasses, you will need this gem to use Rails 3 with that database.}
+  s.date = %q{2011-01-24}
+  s.description = %q{Better support for legacy database schemas for ActiveRecord, such as columns named class, or any other name that conflicts with an instance method of ActiveRecord.}
   s.email = %q{cbj@gnu.org}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Add support for reserved word column names with ActiveRecord}
+  s.summary = %q{Useful for legacy database support, adds support for reserved word column names with ActiveRecord}
   s.test_files = [
     "spec/safe_attributes/safe_attributes_spec.rb",
     "spec/spec_helper.rb"

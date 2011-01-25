@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.version = version
   gem.homepage = "http://github.com/bjones/safe_attributes"
   gem.license = "MIT"
-  gem.summary = %Q{Add support for reserved word column names with ActiveRecord}
-  gem.description = %Q{If your schema has columns named class, or any other name that conflicts with a method of ActiveRecord or one of its superclasses, you will need this gem to use Rails 3 with that database.}
+  gem.summary = %Q{Useful for legacy database support, adds support for reserved word column names with ActiveRecord}
+  gem.description = %Q{Better support for legacy database schemas for ActiveRecord, such as columns named class, or any other name that conflicts with an instance method of ActiveRecord.}
   gem.email = "cbj@gnu.org"
   gem.authors = ["Brian Jones"]
 end
