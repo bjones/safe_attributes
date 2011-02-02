@@ -42,6 +42,13 @@ module SafeAttributes
       super(attr_name)
     end
   end
+
+  module InstanceMethods
+    def read_attribute_for_validation(attr)
+      self[attr.to_sym]
+    end
+  end
+
 end
 
 require 'safe_attributes/railtie.rb' if defined?(Rails)

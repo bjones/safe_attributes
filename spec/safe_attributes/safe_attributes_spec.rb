@@ -11,6 +11,7 @@ end
 class MyModel < ActiveRecord::Base
   include SafeAttributes
   bad_attribute_names :bad_attribute, :bad_attribute=
+  validates_presence_of :class
 end
 
 describe MyModel do
@@ -87,6 +88,14 @@ describe MyModel do
   it "can use finders with attribute" do
     m = MyModel.find_all_by_class('Foo')
     m.size.should == 0
+  end
+
+  it "validates presence of class" do
+    @model.valid?.should be_false
+    Array(@model.errors[:class]).include?("can't be blank").should be_true
+
+    m = MyModel.new(:class => 'Foo')
+    m.valid?.should be_true
   end
 end
 

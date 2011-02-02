@@ -26,6 +26,8 @@ that this module does not prevent the creation of:
 
 These largely should not run afoul of Ruby or ActiveRecord in most cases.
 
+== Accessing Attributes
+
 To access an attribute in ActiveRecord without its normal getter or setter
 you can use a couple of different approaches.
 
@@ -34,6 +36,13 @@ you can use a couple of different approaches.
 * model_instance.write_attribute('attribute', value)
 
 You can read more about reserved words[http://oldwiki.rubyonrails.org/rails/pages/ReservedWords] and magic field names[http://oldwiki.rubyonrails.org/rails/pages/MagicFieldNames] on Rails' wiki pages.
+
+== Validations 
+
+By including safe_attributes, an instance method read_attribute_for_validation
+is defined in a way that will work for all attributes instead of the 
+default implementation that relies upon the default accessors. In other
+words, `validates_presence_of :class' will work as of version 1.0.3.
 
 == Installing
 
@@ -60,10 +69,12 @@ Add safe_attributes to your Gemfile.
 
 SafeAttributes is included into ActiveRecord::Base automatically.  While
 nothing else should be necessary, you can still add to the list of bad
-attributes if you find it necessary.
+attributes if you find it necessary.  This list is a list of method names
+not to generate.
 
   class MyModel < ActiveRecord::Base
     bad_attribute_names :my_attr
+    validates_presence_of :my_attr
   end
 
 === Outside of Rails
@@ -84,4 +95,8 @@ attributes if you find it necessary.
 
 == Copyright
 
-Copyright (c) 2010 C. Brian Jones. See LICENSE for details.
+Copyright (c) 2010,2011 C. Brian Jones. See LICENSE for details.
+
+== Thanks
+
+* Jaime Bellmyer - http://kconrails.com
