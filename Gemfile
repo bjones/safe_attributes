@@ -8,5 +8,11 @@ group :development do
   gem 'rake', '>= 0.8.7'
   gem 'rspec', '>= 2.3.0'
   gem 'rcov'
-  gem 'sqlite3-ruby'
+  platform :ruby do
+    gem 'sqlite3-ruby'
+  end
+  platform :jruby do
+    gem 'activerecord-jdbcsqlite3-adapter'
+    gem 'jruby-openssl'
+  end
 end
