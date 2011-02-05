@@ -1,0 +1,11 @@
+= Version 1.0.4
+
+* Tested against Ruby 1.9.2, found and fixed an issue with default 
+  bad attribute name list
+* Tested against JRuby 1.5.6, found no issues
+
+= Version 1.0.3
+
+* Added validations support that should work with ActiveModel validators
+  by default
+
