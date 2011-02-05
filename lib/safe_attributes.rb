@@ -12,11 +12,11 @@ module SafeAttributes
     #
     def bad_attribute_names(*attrs)
       @bad_attribute_names ||= lambda {
-        methods = Array.new(attrs.collect { |x| x.to_s })
-        methods += ActiveRecord::Base.public_instance_methods
-        methods += ActiveRecord::Base.protected_instance_methods
-        methods += ActiveRecord::Base.private_instance_methods
-        methods -= ['id']
+        methods = Array.new(attrs.collect { |x| x.to_sym })
+        methods += ActiveRecord::Base.public_instance_methods.collect { |x| x.to_sym }
+        methods += ActiveRecord::Base.protected_instance_methods.collect { |x| x.to_sym }
+        methods += ActiveRecord::Base.private_instance_methods.collect { |x| x.to_sym }
+        methods -= [:id]
         return methods
       }.call
     end
@@ -27,7 +27,7 @@ module SafeAttributes
     # bad names
     #
     def define_method_attribute(attr_name)
-      return if (bad_attribute_names.include?(attr_name))
+      return if (bad_attribute_names.include?(attr_name.to_sym))
       super(attr_name)
     end
 
@@ -38,7 +38,7 @@ module SafeAttributes
     #
     def define_method_attribute=(attr_name)
       method = attr_name + '='
-      return if (bad_attribute_names.include?(method))
+      return if (bad_attribute_names.include?(method.to_sym))
       super(attr_name)
     end
   end

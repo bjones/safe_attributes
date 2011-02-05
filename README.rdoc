@@ -62,6 +62,11 @@ without issue using the recommended approach above.
 
 == Using
 
+=== Ruby
+
+Both Ruby 1.8.7 and Ruby 1.9.2 have been tested to work with this gem as
+of version 1.0.4 of SafeAttributes.
+
 === Rails
 Add safe_attributes to your Gemfile.
 

@@ -40,33 +40,33 @@ describe MyModel do
   end
 
   it "defines class=()" do
-    @model.respond_to?('class=') # to force method generation
-    @model.methods.include?('class=').should be_true
+    @model.respond_to?(:class=) # to force method generation
+    (@model.methods.include?('class=') || @model.methods.include?(:class=)).should be_true
   end
 
   it "does not define bad_attribute()" do
-    @model.respond_to?('bad_attribute') # to force method generation
-    @model.methods.include?('bad_attribute').should be_false
+    @model.respond_to?(:bad_attribute) # to force method generation
+    (@model.methods.include?('bad_attribute') || @model.methods.include?(:bad_attribute)).should be_false
   end
 
   it "does not define bad_attribute=()" do
-    @model.respond_to?('bad_attribute=') # to force method generation
-    @model.methods.include?('bad_attribute=').should be_false
+    @model.respond_to?(:bad_attribute=) # to force method generation
+    (@model.methods.include?('bad_attribute=') || @model.methods.include?(:bad_attribute=)).should be_false
   end
 
   it "does define good_attribute()" do
-    @model.respond_to?('good_attribute') # to force method generation
-    @model.methods.include?('good_attribute').should be_true
+    @model.respond_to?(:good_attribute) # to force method generation
+    (@model.methods.include?('good_attribute') || @model.methods.include?(:good_attribute)).should be_true
   end
 
   it "does define good_attribute=()" do
-    @model.respond_to?('good_attribute=') # to force method generation
-    @model.methods.include?('good_attribute=').should be_true
+    @model.respond_to?(:good_attribute=) # to force method generation
+    (@model.methods.include?('good_attribute=') || @model.methods.include?(:good_attribute=)).should be_true
   end
 
   it "does define id()" do
-    @model.respond_to?('id') # to force method generation
-    @model.methods.include?('id').should be_true
+    @model.respond_to?(:id) # to force method generation
+    (@model.methods.include?('id') || @model.methods.include?(:id)).should be_true
   end
 
   it "can create instance in database with special attribute name" do
