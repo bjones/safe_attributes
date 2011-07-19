@@ -41,6 +41,15 @@ module SafeAttributes
       return if (bad_attribute_names.include?(method.to_sym))
       super(attr_name)
     end
+
+    def instance_method_already_implemented?(method_name)
+      begin 
+        return super(method_name)
+      rescue ActiveRecord::DangerousAttributeError
+        return true
+      end
+      return false
+    end
   end
 
   module InstanceMethods

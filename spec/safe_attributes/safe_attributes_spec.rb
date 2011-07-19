@@ -6,6 +6,10 @@ ActiveRecord::Base.connection.create_table(:my_models) do |t|
   t.string :class
   t.string :bad_attribute
   t.string :good_attribute
+  # bad because of changed and changed? in ActiveModel
+  t.string :changed
+  # bad because normally it generates DangerousAttributeError
+  t.string :errors
 end
 
 class MyModel < ActiveRecord::Base
@@ -70,9 +74,21 @@ describe MyModel do
   end
 
   it "can create instance in database with special attribute name" do
-    m = MyModel.create(:class => 'Foo')
+    m = MyModel.create!(:class => 'Foo')
     m = MyModel.find(m.id)
     m[:class].should == 'Foo'
+  end
+
+  it "can create instance in database with attribute 'changed'" do
+    m = MyModel.create!(:class => 'Foo', :changed => 'true change')
+    m = MyModel.find(m.id)
+    m[:changed].should == 'true change'
+  end
+
+  it "can create instance in database with attribute 'errors'" do
+    m = MyModel.create!(:class => 'Foo', :errors => 'my errors')
+    m = MyModel.find(m.id)
+    m[:errors].should == 'my errors'
   end
 
   it "has class attribute" do
@@ -97,5 +113,16 @@ describe MyModel do
     m = MyModel.new(:class => 'Foo')
     m.valid?.should be_true
   end
+
+  it "changed lists attributes with unsaved changes" do
+    m = MyModel.new(:class => 'Foo')
+    m.changed.size == 1
+  end
+
+  it "changed? returns true if any attribute has unsaved changes" do
+    m = MyModel.new(:class => 'Foo')
+    m.changed?.should be_true
+  end
+
 end
 

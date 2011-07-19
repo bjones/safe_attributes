@@ -1,3 +1,7 @@
+= Version 1.0.5
+
+* Resolved issues with columns named 'changed' and 'errors'
+
 = Version 1.0.4
 
 * Tested against Ruby 1.9.2, found and fixed an issue with default 
