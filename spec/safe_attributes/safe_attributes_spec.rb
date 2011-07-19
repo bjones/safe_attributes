@@ -10,6 +10,8 @@ ActiveRecord::Base.connection.create_table(:my_models) do |t|
   t.string :changed
   # bad because normally it generates DangerousAttributeError
   t.string :errors
+  # support hyphenated column names
+  t.string :"comment-frequency"
 end
 
 class MyModel < ActiveRecord::Base
@@ -89,6 +91,12 @@ describe MyModel do
     m = MyModel.create!(:class => 'Foo', :errors => 'my errors')
     m = MyModel.find(m.id)
     m[:errors].should == 'my errors'
+  end
+
+  it "can create instance in database with attribute 'comment-frequency'" do
+    m = MyModel.create!(:class => 'Foo', :"comment-frequency" => 'often')
+    m = MyModel.find(m.id)
+    m[:"comment-frequency"].should == 'often'
   end
 
   it "has class attribute" do
