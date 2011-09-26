@@ -54,7 +54,7 @@ attempt to install it for you.  This can result in an error like below.
   ERROR:  Error installing safe_attributes:
     activemodel requires activesupport (= 3.0.3, runtime)
 
-You can use this gem with activerecord and activesupport >= 3.0 and < 3.1.  
+You can use this gem with activerecord and activesupport >= 3.0.  
 If you already have an appropriate version of activerecord and 
 activesupport installed then use --ignore-dependencies to avoid this
 error.  If you have the latest version already then the gem should install
@@ -64,11 +64,15 @@ without issue using the recommended approach above.
 
 === Ruby
 
-This gem has been tested to work with:
+This gem has been tested with:
 
 * Ruby 1.8.7 
 * Ruby 1.9.2
-* JRuby 1.5.6
+* JRuby 1.6.4
+
+Note that as of Sept. 25, 2011, jruby 1.6.4 failed some tests when using
+ActiveRecord 3.1.  Google indicates others have seen these issues so I 
+expect it will be addressed in the near future by a new jruby release.
 
 === Rails
 Add safe_attributes to your Gemfile.
