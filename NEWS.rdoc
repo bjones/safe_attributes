@@ -1,3 +1,7 @@
+= Version 1.0.6
+
+* Updated gemspec after verifying gem works with ActiveRecord 3.1.
+
 = Version 1.0.5
 
 * Resolved issues with columns named 'changed' and 'errors'
