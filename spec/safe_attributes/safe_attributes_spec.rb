@@ -12,6 +12,7 @@ ActiveRecord::Base.connection.create_table(:my_models) do |t|
   t.string :errors
   # support hyphenated column names
   t.string :"comment-frequency"
+  t.string :attribute
 end
 
 class MyModel < ActiveRecord::Base
@@ -20,7 +21,23 @@ class MyModel < ActiveRecord::Base
   validates_presence_of :class
 end
 
-describe MyModel do
+ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS 'my_users'")
+ActiveRecord::Base.connection.create_table(:my_users) do |t|
+  t.string :encrypted_password
+end
+
+class MyUser < ActiveRecord::Base
+  include SafeAttributes
+  attr_reader :password
+  def password=(p)
+    @password = p
+    self.encrypted_password = p
+  end
+
+  validates_presence_of :password
+end
+
+describe "models" do
 
   before(:each) do
     ActiveRecord::Base.connection.increment_open_transactions
@@ -75,6 +92,16 @@ describe MyModel do
     (@model.methods.include?('id') || @model.methods.include?(:id)).should be_true
   end
 
+  it "does not defined attribute()" do
+    @model.respond_to?(:attribute) # to force method generation
+    (@model.methods.include?('attribute') || @model.methods.include?(:attribute)).should be_false
+  end
+
+  it "does not defined attribute=()" do
+    @model.respond_to?(:attribute=) # to force method generation
+    (@model.methods.include?('attribute=') || @model.methods.include?(:attribute=)).should be_false
+  end
+
   it "can create instance in database with special attribute name" do
     m = MyModel.create!(:class => 'Foo')
     m = MyModel.find(m.id)
@@ -114,7 +141,7 @@ describe MyModel do
     m.size.should == 0
   end
 
-  it "validates presence of class" do
+  it "validates presence of bad attribute name" do
     @model.valid?.should be_false
     Array(@model.errors[:class]).include?("can't be blank").should be_true
 
@@ -130,6 +157,13 @@ describe MyModel do
   it "changed? returns true if any attribute has unsaved changes" do
     m = MyModel.new(:class => 'Foo')
     m.changed?.should be_true
+  end
+
+  it "validates presence of non-attribute" do
+    m = MyUser.new()
+    m.valid?.should be_false
+    m = MyUser.new({:password => 'foobar'})
+    m.valid?.should be_true
   end
 
 end

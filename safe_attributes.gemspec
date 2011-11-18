@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{safe_attributes}
-  s.version = "1.0.6"
+  s.name = "safe_attributes"
+  s.version = "1.0.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Jones"]
-  s.date = %q{2011-09-25}
-  s.description = %q{Better support for legacy database schemas for ActiveRecord, such as columns named class, or any other name that conflicts with an instance method of ActiveRecord.}
-  s.email = %q{cbj@gnu.org}
+  s.date = "2011-11-18"
+  s.description = "Better support for legacy database schemas for ActiveRecord, such as columns named class, or any other name that conflicts with an instance method of ActiveRecord."
+  s.email = "cbj@gnu.org"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -31,11 +31,11 @@ Gem::Specification.new do |s|
     "spec/safe_attributes/safe_attributes_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/bjones/safe_attributes}
+  s.homepage = "http://github.com/bjones/safe_attributes"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.1}
-  s.summary = %q{Useful for legacy database support, adds support for reserved word column names with ActiveRecord}
+  s.rubygems_version = "1.8.11"
+  s.summary = "Useful for legacy database support, adds support for reserved word column names with ActiveRecord"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

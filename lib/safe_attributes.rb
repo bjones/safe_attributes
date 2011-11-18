@@ -54,7 +54,11 @@ module SafeAttributes
 
   module InstanceMethods
     def read_attribute_for_validation(attr)
-      self[attr.to_sym]
+      if (self.attributes.include?(attr.to_s))
+        self[attr.to_sym]
+      else
+        self.send(attr.to_s) if (self.respond_to?(attr.to_sym))
+      end
     end
   end
 
