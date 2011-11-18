@@ -1,3 +1,7 @@
+= Version 1.0.7
+
+* Resolved validation issue when using Devise
+
 = Version 1.0.6
 
 * Updated gemspec after verifying gem works with ActiveRecord 3.1.
