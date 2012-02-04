@@ -12,7 +12,6 @@ ActiveRecord::Base.connection.create_table(:my_models) do |t|
   t.string :errors
   # support hyphenated column names
   t.string :"comment-frequency"
-  t.string :attribute
 end
 
 class MyModel < ActiveRecord::Base
@@ -90,16 +89,6 @@ describe "models" do
   it "does define id()" do
     @model.respond_to?(:id) # to force method generation
     (@model.methods.include?('id') || @model.methods.include?(:id)).should be_true
-  end
-
-  it "does not defined attribute()" do
-    @model.respond_to?(:attribute) # to force method generation
-    (@model.methods.include?('attribute') || @model.methods.include?(:attribute)).should be_false
-  end
-
-  it "does not defined attribute=()" do
-    @model.respond_to?(:attribute=) # to force method generation
-    (@model.methods.include?('attribute=') || @model.methods.include?(:attribute=)).should be_false
   end
 
   it "can create instance in database with special attribute name" do

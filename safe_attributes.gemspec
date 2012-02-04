@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "safe_attributes"
-  s.version = "1.0.7"
+  s.version = "1.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Jones"]
-  s.date = "2011-11-18"
+  s.date = "2012-02-04"
   s.description = "Better support for legacy database schemas for ActiveRecord, such as columns named class, or any other name that conflicts with an instance method of ActiveRecord."
   s.email = "cbj@gnu.org"
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    ".rvmrc",
     "Gemfile",
     "LICENSE",
     "NEWS.rdoc",
@@ -34,7 +35,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/bjones/safe_attributes"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.10"
   s.summary = "Useful for legacy database support, adds support for reserved word column names with ActiveRecord"
 
   if s.respond_to? :specification_version then
@@ -47,7 +48,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>, [">= 0.8.7"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 2.3.0"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 1.3.4"])
       s.add_development_dependency(%q<activerecord-jdbcsqlite3-adapter>, [">= 0"])
       s.add_development_dependency(%q<jruby-openssl>, [">= 0"])
@@ -58,7 +58,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rake>, [">= 0.8.7"])
       s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 2.3.0"])
-      s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 1.3.4"])
       s.add_dependency(%q<activerecord-jdbcsqlite3-adapter>, [">= 0"])
       s.add_dependency(%q<jruby-openssl>, [">= 0"])
@@ -70,7 +69,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rake>, [">= 0.8.7"])
     s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 2.3.0"])
-    s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 1.3.4"])
     s.add_dependency(%q<activerecord-jdbcsqlite3-adapter>, [">= 0"])
     s.add_dependency(%q<jruby-openssl>, [">= 0"])

@@ -95,6 +95,14 @@ not to generate.
     include SafeAttributes
   end
 
+== Caveats
+
+It is virtually impossible to have a column named 'attribute' in your
+schema when using ActiveRecord.  After spending some time trying to 
+make it work I've come to the conclusion the only way to support this
+will be to change the tactic I'm using entirely, and likely to
+get the developers of ActiveRecord to agree to a patch.
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
