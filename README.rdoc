@@ -115,7 +115,7 @@ get the developers of ActiveRecord to agree to a patch.
 
 == Copyright
 
-Copyright (c) 2010,2011 C. Brian Jones. See LICENSE for details.
+Copyright (c) 2010,2011,2012 C. Brian Jones. See LICENSE for details.
 
 == Thanks
 
