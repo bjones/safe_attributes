@@ -21,4 +21,4 @@ pkg
 Gemfile.lock
 
 ## PROJECT::SPECIFIC
-db/*
+db/*.db
