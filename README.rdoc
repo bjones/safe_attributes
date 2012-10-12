@@ -68,6 +68,7 @@ This gem has been tested with:
 
 * Ruby 1.8.7 
 * Ruby 1.9.2
+* Ruby 1.9.3
 * JRuby 1.6.4
 
 Note that as of Sept. 25, 2011, jruby 1.6.4 failed some tests when using
@@ -75,21 +76,20 @@ ActiveRecord 3.1.  Google indicates others have seen these issues so I
 expect it will be addressed in the near future by a new jruby release.
 
 === Rails
+
+SafeAttributes used to be included into ActiveRecord::Base automatically 
+through a Railtie. This Railtie is no longer included automatically by default, 
+but it is still available should you wish to include SafeAttributes 
+into ActiveRecord::Base. Simply add the following to initializers/safe_attributes.rb:
+
+   require 'safe_attributes/railtie.rb' if defined?(Rails)
+
+=== Outside of Rails / Rails Without Initializer
+
 Add safe_attributes to your Gemfile.
 
   gem 'safe_attributes'
 
-SafeAttributes is included into ActiveRecord::Base automatically.  While
-nothing else should be necessary, you can still add to the list of bad
-attributes if you find it necessary.  This list is a list of method names
-not to generate.
-
-  class MyModel < ActiveRecord::Base
-    bad_attribute_names :my_attr
-    validates_presence_of :my_attr
-  end
-
-=== Outside of Rails
   require 'safe_attributes'
   class MyModel < ActiveRecord::Base
     include SafeAttributes
