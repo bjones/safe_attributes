@@ -63,5 +63,3 @@ module SafeAttributes
   end
 
 end
-
-require 'safe_attributes/railtie.rb' if defined?(Rails)
