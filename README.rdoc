@@ -31,7 +31,7 @@ These largely should not run afoul of Ruby or ActiveRecord in most cases.
 To access an attribute in ActiveRecord without its normal getter or setter
 you can use a couple of different approaches.
 
-* model_instance[:attribute]  # works as both getter and setter like a hash
+* \model_instance[:attribute]  # works as both getter and setter like a hash
 * model_instance.read_attribute('attribute')
 * model_instance.write_attribute('attribute', value)
 
@@ -67,7 +67,7 @@ without issue using the recommended approach above.
 This gem has been tested with:
 
 * Ruby 1.8.7 
-* Ruby 1.9.2
+* Ruby 1.9.3
 * JRuby 1.6.4
 
 Note that as of Sept. 25, 2011, jruby 1.6.4 failed some tests when using
@@ -89,10 +89,18 @@ not to generate.
     validates_presence_of :my_attr
   end
 
+If you do not want SafeAttributes to be automatically included into 
+ActiveRecord::Base, then instead add this to your Gemfile.
+
+  gem 'safe_attributes', :require => 'safe_attributes/base'
+
+You will then need to include the SafeAttributes::Base module into any
+model you wish to have this functionality.
+
 === Outside of Rails
-  require 'safe_attributes'
+  require 'safe_attributes/base'
   class MyModel < ActiveRecord::Base
-    include SafeAttributes
+    include SafeAttributes::Base
   end
 
 == Caveats
@@ -120,3 +128,5 @@ Copyright (c) 2010,2011,2012 C. Brian Jones. See LICENSE for details.
 == Thanks
 
 * Jaime Bellmyer - http://kconrails.com
+* James Brennan
+* Billy Watson

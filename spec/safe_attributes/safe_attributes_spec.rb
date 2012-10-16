@@ -26,7 +26,7 @@ ActiveRecord::Base.connection.create_table(:my_users) do |t|
 end
 
 class MyUser < ActiveRecord::Base
-  include SafeAttributes
+  include SafeAttributes::Base
   attr_reader :password
   def password=(p)
     @password = p
