@@ -63,5 +63,10 @@ module SafeAttributes
       end
     end
 
+    def attribute_change(attr)
+      return if self.class.bad_attribute_names.include?(attr.to_sym)
+      [changed_attributes[attr], __send__(attr)] if attribute_changed?(attr)
+    end
+
   end
 end
