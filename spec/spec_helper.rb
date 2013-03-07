@@ -13,7 +13,7 @@ require 'rspec/autorun'
 
 root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 ActiveRecord::Base.establish_connection(
-  :adapter => "sqlite3", 
+  :adapter => (RUBY_PLATFORM == 'java') ? "jdbcsqlite3" : "sqlite3", 
   :database => "#{root}/db/safeattributes.db"
 )
 

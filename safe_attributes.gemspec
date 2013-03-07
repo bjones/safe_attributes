@@ -23,6 +23,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<rake>, [">= 0.8.7"])
   s.add_development_dependency(%q<rdoc>, [">= 0"])
   s.add_development_dependency(%q<rspec>, [">= 2.3.0"])
-  s.add_development_dependency(%q<sqlite3>, [">= 1.3.4"])
 end
 

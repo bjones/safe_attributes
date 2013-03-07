@@ -66,13 +66,9 @@ without issue using the recommended approach above.
 
 This gem has been tested with:
 
-* Ruby 1.8.7 
-* Ruby 1.9.3
-* JRuby 1.6.4
-
-Note that as of Sept. 25, 2011, jruby 1.6.4 failed some tests when using
-ActiveRecord 3.1.  Google indicates others have seen these issues so I 
-expect it will be addressed in the near future by a new jruby release.
+* Ruby Enterprise Edition 1.8.7 2012-02-08
+* Ruby 1.9.3p374
+* JRuby 1.7.2
 
 === Rails
 Add safe_attributes to your Gemfile.
