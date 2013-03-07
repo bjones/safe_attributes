@@ -165,5 +165,26 @@ describe "models" do
     m.valid?.should be_true
   end
 
+  describe "dirty" do
+    it "new record - no changes" do
+      @model.class_changed?.should be_false
+      @model.class_change.should be_nil
+    end
+
+    it "changed record - has changes" do
+      @model[:class] = 'arrr'
+      @model.class_changed?.should be_true
+      @model.class_was.should be_nil
+      @model.class_change.should == [nil, 'arrr']
+    end
+
+    it "saved record - no changes" do
+      @model[:class] = 'arrr'
+      @model.save!
+      @model.class_changed?.should be_false
+      @model.class_change.should be_nil
+    end
+  end
+
 end
 
