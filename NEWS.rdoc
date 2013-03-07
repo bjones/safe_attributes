@@ -1,3 +1,7 @@
+= Version 1.0.10
+
+* The attribute 'association' should work better now
+
 = Version 1.0.9
 
 * Can avoid the railtie that automatically includes SafeAttributes, see README
