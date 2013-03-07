@@ -12,6 +12,8 @@ ActiveRecord::Base.connection.create_table(:my_models) do |t|
   t.string :errors
   # support hyphenated column names
   t.string :"comment-frequency"
+  # Issue #8
+  t.string :association
 end
 
 class MyModel < ActiveRecord::Base
@@ -113,6 +115,14 @@ describe "models" do
     m = MyModel.create!(:class => 'Foo', :"comment-frequency" => 'often')
     m = MyModel.find(m.id)
     m[:"comment-frequency"].should == 'often'
+  end
+
+  it "can create instance in database with attribute 'association'" do
+    m = MyModel.new(:class => 'Foo')
+    m[:association] = 'worker'
+    m.save!
+    m = MyModel.find(m.id)
+    m[:association].should == 'worker'
   end
 
   it "has class attribute" do
