@@ -1,11 +1,11 @@
 PATH
   remote: /Users/ge.unx.sas.com/vol/vol420/u42/cbjone/codebase/safe_attributes
   specs:
-    safe_attributes (1.0.9)
+    safe_attributes (1.0.10)
       activerecord (>= 3.0.0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     activemodel (3.1.8)
       activesupport (= 3.1.8)
