@@ -41,80 +41,77 @@ end
 describe "models" do
 
   before(:each) do
-    ActiveRecord::Base.connection.increment_open_transactions
-    ActiveRecord::Base.connection.begin_db_transaction
     @model = MyModel.new
   end
 
   after(:each) do
-    ActiveRecord::Base.connection.rollback_db_transaction
-    ActiveRecord::Base.connection.decrement_open_transactions
+    MyModel.delete_all
   end
 
   it "inspecting class returns expected attribute names" do
-    MyModel.inspect.should match 'class: string'
+    expect(MyModel.inspect).to match 'class: string'
   end
 
   it "inspecting instance returns expected attribute names" do
-    @model.inspect.should match 'class: nil'
+    expect(@model.inspect).to match 'class: nil'
   end
 
   it "does not redefine class()" do
-    @model.class.name.should == 'MyModel'
+    expect(@model.class.name).to eq('MyModel')
   end
 
   it "defines class=()" do
     @model.respond_to?(:class=) # to force method generation
-    (@model.methods.include?('class=') || @model.methods.include?(:class=)).should be_true
+    expect(@model.methods.include?('class=') || @model.methods.include?(:class=)).to be true
   end
 
   it "does not define bad_attribute()" do
     @model.respond_to?(:bad_attribute) # to force method generation
-    (@model.methods.include?('bad_attribute') || @model.methods.include?(:bad_attribute)).should be_false
+    expect(@model.methods.include?('bad_attribute') || @model.methods.include?(:bad_attribute)).to be false
   end
 
   it "does not define bad_attribute=()" do
     @model.respond_to?(:bad_attribute=) # to force method generation
-    (@model.methods.include?('bad_attribute=') || @model.methods.include?(:bad_attribute=)).should be_false
+    expect(@model.methods.include?('bad_attribute=') || @model.methods.include?(:bad_attribute=)).to be false
   end
 
   it "does define good_attribute()" do
     @model.respond_to?(:good_attribute) # to force method generation
-    (@model.methods.include?('good_attribute') || @model.methods.include?(:good_attribute)).should be_true
+    expect(@model.methods.include?('good_attribute') || @model.methods.include?(:good_attribute)).to be true
   end
 
   it "does define good_attribute=()" do
     @model.respond_to?(:good_attribute=) # to force method generation
-    (@model.methods.include?('good_attribute=') || @model.methods.include?(:good_attribute=)).should be_true
+    expect(@model.methods.include?('good_attribute=') || @model.methods.include?(:good_attribute=)).to be true
   end
 
   it "does define id()" do
     @model.respond_to?(:id) # to force method generation
-    (@model.methods.include?('id') || @model.methods.include?(:id)).should be_true
+    expect(@model.methods.include?('id') || @model.methods.include?(:id)).to be true
   end
 
   it "can create instance in database with special attribute name" do
     m = MyModel.create!(:class => 'Foo')
     m = MyModel.find(m.id)
-    m[:class].should == 'Foo'
+    expect(m[:class]).to eq('Foo')
   end
 
   it "can create instance in database with attribute 'changed'" do
     m = MyModel.create!(:class => 'Foo', :changed => 'true change')
     m = MyModel.find(m.id)
-    m[:changed].should == 'true change'
+    expect(m[:changed]).to eq('true change')
   end
 
   it "can create instance in database with attribute 'errors'" do
     m = MyModel.create!(:class => 'Foo', :errors => 'my errors')
     m = MyModel.find(m.id)
-    m[:errors].should == 'my errors'
+    expect(m[:errors]).to eq('my errors')
   end
 
   it "can create instance in database with attribute 'comment-frequency'" do
     m = MyModel.create!(:class => 'Foo', :"comment-frequency" => 'often')
     m = MyModel.find(m.id)
-    m[:"comment-frequency"].should == 'often'
+    expect(m[:"comment-frequency"]).to eq('often')
   end
 
   it "can create instance in database with attribute 'association'" do
@@ -122,67 +119,67 @@ describe "models" do
     m[:association] = 'worker'
     m.save!
     m = MyModel.find(m.id)
-    m[:association].should == 'worker'
+    expect(m[:association]).to eq('worker')
   end
 
   it "has class attribute" do
-    MyModel.new().has_attribute?('class').should be_true
+    expect(MyModel.new().has_attribute?('class')).to be true
   end
 
   it "can call class= without error" do
     m = MyModel.new()
     m.class = 'Foo'
-    m[:class].should == 'Foo'
+    expect(m[:class]).to eq('Foo')
   end
 
   it "can use finders with attribute" do
-    m = MyModel.find_all_by_class('Foo')
-    m.size.should == 0
+    m = MyModel.where(:class => 'Foo').to_a
+    expect(m).to be_empty
   end
 
   it "validates presence of bad attribute name" do
-    @model.valid?.should be_false
-    Array(@model.errors[:class]).include?("can't be blank").should be_true
+    expect(@model).to_not be_valid
+    expect(Array(@model.errors[:class]).include?("can't be blank")).to be true
 
     m = MyModel.new(:class => 'Foo')
-    m.valid?.should be_true
+    expect(m).to be_valid
   end
 
   it "changed lists attributes with unsaved changes" do
     m = MyModel.new(:class => 'Foo')
-    m.changed.size == 1
+    expect(m.changed.size).to eq(1)
   end
 
   it "changed? returns true if any attribute has unsaved changes" do
     m = MyModel.new(:class => 'Foo')
-    m.changed?.should be_true
+    expect(m).to be_changed
   end
 
   it "validates presence of non-attribute" do
     m = MyUser.new()
-    m.valid?.should be_false
+    expect(m).to_not be_valid
     m = MyUser.new({:password => 'foobar'})
-    m.valid?.should be_true
+    expect(m).to be_valid
   end
 
   describe "dirty" do
     it "new record - no changes" do
-      @model.class_changed?.should be_false
-      @model.class_change.should be_nil
+      expect(@model.class_changed?).to be false
+      expect(@model.class_change).to be_nil
     end
 
     it "changed record - has changes" do
       @model[:class] = 'arrr'
-      @model.class_changed?.should be_true
-      @model.class_was.should be_nil
-      @model.class_change.should == [nil, 'arrr']
+      expect(@model.class_changed?).to be true
+      expect(@model.class_was).to be_nil
+      expect(@model.class_change).to eq([nil, 'arrr'])
     end
 
     it "saved record - no changes" do
       @model[:class] = 'arrr'
       @model.save!
-      @model.class_changed?.should be_false
-      @model.class_change.should be_nil
+      expect(@model.class_changed?).to be false
+      expect(@model.class_change).to be_nil
     end
   end
 
