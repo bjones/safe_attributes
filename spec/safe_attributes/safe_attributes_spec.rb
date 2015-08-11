@@ -164,7 +164,8 @@ describe "models" do
 
   describe "dirty" do
     it "new record - no changes" do
-      expect(@model.class_changed?).to be false
+      # NOTE: in 4.1 this returns false. In 4.2, nil.
+      expect(@model.class_changed?).to be_falsey
       expect(@model.class_change).to be_nil
     end
 
