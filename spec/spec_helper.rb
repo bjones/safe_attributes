@@ -16,6 +16,16 @@ ActiveRecord::Base.establish_connection(
   :database => "#{root}/db/safeattributes.db"
 )
 
+# Shim for Rspec 2, which doesn't have the falsey predicate
+
+if RSpec::Version::STRING < '3.0.0'
+  class Object
+    def falsey?
+      !self
+    end
+  end
+end
+
 RSpec.configure do |config|
 end
 
