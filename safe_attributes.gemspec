@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.licenses = ["MIT"]
 
-  s.add_runtime_dependency(%q<activerecord>, [">= 3.0.0"])
+  s.add_runtime_dependency(%q<activerecord>, [">= 3.0.0", "< 5.0.0"])
 
   s.add_development_dependency(%q<rake>, [">= 0.8.7"])
   s.add_development_dependency(%q<rdoc>, [">= 0"])
