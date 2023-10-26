@@ -1,0 +1,92 @@
+PATH
+  remote: ..
+  specs:
+    safe_attributes (2.0.0)
+      activerecord (>= 3.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (7.0.8)
+      activesupport (= 7.0.8)
+    activerecord (7.0.8)
+      activemodel (= 7.0.8)
+      activesupport (= 7.0.8)
+    activesupport (7.0.8)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+    appraisal (2.5.0)
+      bundler
+      rake
+      thor (>= 0.14.0)
+    binding_of_caller (1.0.0)
+      debug_inspector (>= 0.0.1)
+    byebug (11.1.3)
+    coderay (1.1.3)
+    concurrent-ruby (1.2.2)
+    debug_inspector (1.1.0)
+    diff-lcs (1.5.0)
+    docile (1.4.0)
+    i18n (1.14.1)
+      concurrent-ruby (~> 1.0)
+    method_source (1.0.0)
+    minitest (5.20.0)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
+    pry-stack_explorer (0.6.1)
+      binding_of_caller (~> 1.0)
+      pry (~> 0.13)
+    psych (5.1.1.1)
+      stringio
+    rake (13.0.6)
+    rdoc (6.5.0)
+      psych (>= 4.0.0)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.6)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.1)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
+    sqlite3 (1.6.7-x86_64-linux)
+    stringio (3.0.8)
+    thor (1.3.0)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  activerecord (~> 7.0.0)
+  appraisal
+  pry
+  pry-byebug
+  pry-stack_explorer
+  rake (>= 0.8.7)
+  rdoc
+  rspec (>= 2.3.0)
+  safe_attributes!
+  simplecov
+  sqlite3
+
+BUNDLED WITH
+   2.4.21
