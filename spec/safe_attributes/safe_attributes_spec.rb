@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require_relative '../spec_helper.rb'
 
 # create the table for the test in the database
 ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS 'my_models'")
@@ -38,17 +38,20 @@ class MyUser < ActiveRecord::Base
   validates_presence_of :password
 end
 
+require 'pry'
+
+#binding.pry
+
+
 describe "models" do
 
   before(:each) do
-    ActiveRecord::Base.connection.increment_open_transactions
-    ActiveRecord::Base.connection.begin_db_transaction
+    ActiveRecord::Base.connection.begin_transaction
     @model = MyModel.new
   end
 
   after(:each) do
-    ActiveRecord::Base.connection.rollback_db_transaction
-    ActiveRecord::Base.connection.decrement_open_transactions
+    ActiveRecord::Base.connection.rollback_transaction
   end
 
   it "inspecting class returns expected attribute names" do
@@ -65,32 +68,32 @@ describe "models" do
 
   it "defines class=()" do
     @model.respond_to?(:class=) # to force method generation
-    (@model.methods.include?('class=') || @model.methods.include?(:class=)).should be_true
+    (@model.methods.include?('class=') || @model.methods.include?(:class=)).should be_truthy
   end
 
   it "does not define bad_attribute()" do
     @model.respond_to?(:bad_attribute) # to force method generation
-    (@model.methods.include?('bad_attribute') || @model.methods.include?(:bad_attribute)).should be_false
+    (@model.methods.include?('bad_attribute') || @model.methods.include?(:bad_attribute)).should be_falsey
   end
 
   it "does not define bad_attribute=()" do
     @model.respond_to?(:bad_attribute=) # to force method generation
-    (@model.methods.include?('bad_attribute=') || @model.methods.include?(:bad_attribute=)).should be_false
+    (@model.methods.include?('bad_attribute=') || @model.methods.include?(:bad_attribute=)).should be_falsey
   end
 
   it "does define good_attribute()" do
     @model.respond_to?(:good_attribute) # to force method generation
-    (@model.methods.include?('good_attribute') || @model.methods.include?(:good_attribute)).should be_true
+    (@model.methods.include?('good_attribute') || @model.methods.include?(:good_attribute)).should be_truthy
   end
 
   it "does define good_attribute=()" do
     @model.respond_to?(:good_attribute=) # to force method generation
-    (@model.methods.include?('good_attribute=') || @model.methods.include?(:good_attribute=)).should be_true
+    (@model.methods.include?('good_attribute=') || @model.methods.include?(:good_attribute=)).should be_truthy
   end
 
   it "does define id()" do
     @model.respond_to?(:id) # to force method generation
-    (@model.methods.include?('id') || @model.methods.include?(:id)).should be_true
+    (@model.methods.include?('id') || @model.methods.include?(:id)).should be_truthy
   end
 
   it "can create instance in database with special attribute name" do
@@ -126,7 +129,7 @@ describe "models" do
   end
 
   it "has class attribute" do
-    MyModel.new().has_attribute?('class').should be_true
+    MyModel.new().has_attribute?('class').should be_truthy
   end
 
   it "can call class= without error" do
@@ -135,17 +138,19 @@ describe "models" do
     m[:class].should == 'Foo'
   end
 
+=begin Deprecated in Rails 4.1
   it "can use finders with attribute" do
     m = MyModel.find_all_by_class('Foo')
     m.size.should == 0
   end
+=end
 
   it "validates presence of bad attribute name" do
-    @model.valid?.should be_false
-    Array(@model.errors[:class]).include?("can't be blank").should be_true
+    @model.valid?.should be_falsey
+    Array(@model.errors[:class]).include?("can't be blank").should be_truthy
 
     m = MyModel.new(:class => 'Foo')
-    m.valid?.should be_true
+    m.valid?.should be_truthy
   end
 
   it "changed lists attributes with unsaved changes" do
@@ -155,25 +160,25 @@ describe "models" do
 
   it "changed? returns true if any attribute has unsaved changes" do
     m = MyModel.new(:class => 'Foo')
-    m.changed?.should be_true
+    m.changed?.should be_truthy
   end
 
   it "validates presence of non-attribute" do
     m = MyUser.new()
-    m.valid?.should be_false
+    m.valid?.should be_falsey
     m = MyUser.new({:password => 'foobar'})
-    m.valid?.should be_true
+    m.valid?.should be_truthy
   end
 
   describe "dirty" do
     it "new record - no changes" do
-      @model.class_changed?.should be_false
+      @model.class_changed?.should be_falsey
       @model.class_change.should be_nil
     end
 
     it "changed record - has changes" do
       @model[:class] = 'arrr'
-      @model.class_changed?.should be_true
+      @model.class_changed?.should be_truthy
       @model.class_was.should be_nil
       @model.class_change.should == [nil, 'arrr']
     end
@@ -181,7 +186,7 @@ describe "models" do
     it "saved record - no changes" do
       @model[:class] = 'arrr'
       @model.save!
-      @model.class_changed?.should be_false
+      @model.class_changed?.should be_falsey
       @model.class_change.should be_nil
     end
   end
